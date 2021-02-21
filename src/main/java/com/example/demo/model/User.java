@@ -16,6 +16,17 @@ import javax.validation.constraints.Email;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * Copyright (c) 2020 UserManagement. All Rights Reserved.<br>
+ * <br>
+ * Theme - UserManagement <br>
+ * Feature - UserServices<br>
+ * Description - This is a POJO class containing User Details
+ * 
+ * @author Ashi Bindal
+ * @version 1.0.0
+ * @since Feb 21, 2021
+ */
 
 @Entity
 public class User implements Serializable {

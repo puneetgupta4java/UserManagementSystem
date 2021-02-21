@@ -2,6 +2,18 @@ package com.example.demo.model;
 
 import java.io.Serializable;
 
+/**
+ * Copyright (c) 2020 UserManagement. All Rights Reserved.<br>
+ * <br>
+ * Theme - UserManagement <br>
+ * Feature - UserServices<br>
+ * Description - This is a POJO class containing Data of User Address
+ * 
+ * @author Ashi Bindal
+ * @version 1.0.0
+ * @since Feb 21, 2021
+ */
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,6 +40,20 @@ public class Address implements Serializable{
 	@JoinColumn(name="Users_ID")
 	@JsonIgnoreProperties("address")
 	private User user;
+	
+	
+	public Address() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public Address(int addressId, String city, String state, int pincode) {
+		super();
+		this.addressId = addressId;
+		this.city = city;
+		this.state = state;
+		this.pincode = pincode;
+	
+	}
 	
 	public String getCity() {
 		return city;
@@ -69,18 +95,7 @@ public class Address implements Serializable{
 		this.user = user;
 	}
 
-	public Address() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public Address(int addressId, String city, String state, int pincode) {
-		super();
-		this.addressId = addressId;
-		this.city = city;
-		this.state = state;
-		this.pincode = pincode;
 	
-	}
 
 	@Override
 	public int hashCode() {

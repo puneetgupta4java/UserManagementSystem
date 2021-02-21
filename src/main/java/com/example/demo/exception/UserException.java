@@ -4,6 +4,10 @@ import org.springframework.http.HttpStatus;
 
 public class UserException extends RuntimeException{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String message;
 	HttpStatus httpStatus;
 	
@@ -17,16 +21,8 @@ public class UserException extends RuntimeException{
 		return message;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
 	public HttpStatus getHttpStatus() {
 		return httpStatus;
-	}
-
-	public void setHttpStatus(HttpStatus httpStatus) {
-		this.httpStatus = httpStatus;
 	}
 
 	@Override
