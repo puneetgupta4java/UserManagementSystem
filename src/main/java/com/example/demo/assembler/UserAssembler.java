@@ -1,12 +1,13 @@
 package com.example.demo.assembler;
 
-import java.util.Optional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.example.demo.model.User;
-import com.example.demo.response.dto.UserDto;
+import com.example.demo.response.dto.UserResponse;
+import com.example.demo.response.dto.UserResponseDto;
 
 /**
  * Copyright (c) 2020 UserManagement. All Rights Reserved.<br>
@@ -23,18 +24,53 @@ import com.example.demo.response.dto.UserDto;
 @Component
 public class UserAssembler {
 	
+	/*
+	 * @Autowired UserResponse userResponse;
+	 */
+	
 	@Autowired
-	UserDto userDto;
+	UserResponseDto userResponseDto;
 	
-	public UserDto toModel(Optional<User> user)
+	@Autowired
+	AddressAssembler addressAssembler;
+	
+	public UserResponseDto toModel(List<User> user)
 	{
-		User usr = user.get();
-	
-		userDto.setName(usr.getName());
-		userDto.setEmail(usr.getEmail());
-		userDto.setAddress(usr.getAddress());
+		List<UserResponse> userResponseList = user.stream().map(		
+		(usr) ->
+		{	
+			  UserResponse userResponse = new UserResponse();
+			  userResponse.setName(usr.getName()); 
+			  userResponse.setEmail(usr.getEmail());
+			  
+			  //AddressDto address = new AddressDto();
 		
-	return userDto;
+			  
+			/*  if(usr.getAddress().isPresent())
+			  {
+				  		Address add = usr.getAddress().get();
+				  		
+						  String city = add.getCity();
+						  String state= add.getState();
+						  int pincode = add.getPincode();
+				  
+				userResponse.setAddress(new AddressDto(city,state,pincode));
+			  }
+			 */
+			 
+			  if(usr.getAddress().isPresent())
+			  {
+				  userResponse.setAddress(addressAssembler.toModelAddress(usr));
+			  }
+			  
+			  userResponse.setAccountState(usr.getAccountState());
+			  userResponse.setRoles(usr.getRoles());
+			  return userResponse;
+		}).collect(Collectors.toList());
+		
+		userResponseDto.setUserResponse(userResponseList);
+		
+	return userResponseDto;
 		
 	}
 }
